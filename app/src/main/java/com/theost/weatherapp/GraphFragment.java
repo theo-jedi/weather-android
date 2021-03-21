@@ -75,7 +75,7 @@ public class GraphFragment extends Fragment {
         TextView tv = layout.findViewById(R.id.textView);
         tv.setText(mParam5);
         MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
-
+        // заполняем массив полученными числами за год
         dataFloat = new ArrayList<>();
         for (float f : mParam4) {
             dataFloat.add(f);
@@ -95,7 +95,7 @@ public class GraphFragment extends Fragment {
         lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate(); // refresh
-        
+
         toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             int pr = 0;
             ArrayList<Float> newArr;

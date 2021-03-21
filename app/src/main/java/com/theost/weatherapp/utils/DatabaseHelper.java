@@ -91,6 +91,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.endTransaction();
     }
 
+    public Cursor getYearData(String city) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result;
+        try {
+            result = db.rawQuery("SELECT * FROM " + city, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = null;
+        }
+        return result;
+    }
+
     public Cursor getMonthData(String city, int month) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
