@@ -26,21 +26,23 @@ public class GraphFragment extends Fragment {
     private static final String ARG_PARAM2 = "DAY";
     private static final String ARG_PARAM3 = "WEEK";
     private static final String ARG_PARAM4 = "TEMPS";
-
+    private static final String ARG_PARAM5 = "NAME";
     private String mParam1;
     private String mParam2;
     private String mParam3;
     private float[] mParam4;
+    private String mParam5;
 
     public GraphFragment() {}
 
-    public static GraphFragment newInstance(String param1, String param2, String param3, float[] param4) {
+    public static GraphFragment newInstance(String param1, String param2, String param3, float[] param4, String param5) {
         GraphFragment fragment = new GraphFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putString(ARG_PARAM3, param3);
         args.putFloatArray(ARG_PARAM4, param4);
+        args.putString(ARG_PARAM5, param5);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,6 +55,7 @@ public class GraphFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getFloatArray(ARG_PARAM4);
+            mParam5 = getArguments().getString(ARG_PARAM5);
         }
     }
 
@@ -62,7 +65,8 @@ public class GraphFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_graph, container, false);
         LineChart chart = (LineChart) layout.findViewById(R.id.chart);
-//        TextView tv = layout.findViewById(R.id.textView);
+        TextView tv = layout.findViewById(R.id.textView);
+        tv.setText(mParam5);
 //        MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
 //
 //        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {

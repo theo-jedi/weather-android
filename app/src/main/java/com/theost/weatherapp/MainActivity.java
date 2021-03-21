@@ -71,10 +71,21 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
-        // добавляем фрагмент
-        Fragment myFragment = new GraphFragment();
-        fragmentTransaction.add(R.id.container, myFragment);
+        for (String s : cities) {
+            Fragment myFragment = new GraphFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("DAY", "12");
+            bundle.putString("MONTH", "11");
+            bundle.putString("YEAR", "1001");
+            bundle.putString("NAME", s);
+            float[] temps = new float[365];
+            for (int i = 0; i < 365; i++) {
+                temps[i] = i;
+            }
+            bundle.putFloatArray("TEMPS", temps);
+            myFragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.container, myFragment);
+        }
         fragmentTransaction.commit();
     }
 
