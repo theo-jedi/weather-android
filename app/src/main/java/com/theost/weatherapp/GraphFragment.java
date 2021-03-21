@@ -72,14 +72,27 @@ public class GraphFragment extends Fragment {
         MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
 
         toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            toggleButtons.setSingleSelection(checkedId);
             switch (checkedId) {
-                case 0:
-                    dataFloat = mParam4;
+                case R.id.button1:
+                    int pr = 0;
+                    ArrayList<Float> newArr = new ArrayList<>();
+                    for (int i = 0; i < 365; i++) {
+                        pr += dataFloat[i];
+                        if (i % 7 == 0) {
+                            newArr.add(pr / 7f);
+                            pr = 0;
+                        }
+                    }
+                    break;
+                case R.id.button2:
+
+                    break;
+                case R.id.button3:
+
                     break;
             }
         });
-
+        dataFloat = mParam4;
         DATA[] dataObjects = new DATA[365];
         for (int i = 0; i < 365; i++) {
             dataObjects[i] = new DATA(i, dataFloat[i]);

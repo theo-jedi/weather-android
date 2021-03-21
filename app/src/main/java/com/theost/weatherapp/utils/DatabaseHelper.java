@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (String table : TABLES) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " INTEGER PRIMARY KEY, " + COL_1 + " INTEGER NOT NULL, " + COL_2 + " INTEGER NOT NULL" + COL_3 + " REAL NOT NULL");
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " INTEGER PRIMARY KEY, " + COL_1 + " INTEGER NOT NULL, " + COL_2 + " INTEGER NOT NULL, " + COL_3 + " REAL NOT NULL)");
         }
     }
 

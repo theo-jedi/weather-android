@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import com.theost.weatherapp.utils.DatabaseHelper;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        /*if (!databaseHelper.isInitialized()) {
+        if (!databaseHelper.isInitialized()) {
             for (String city : cities) {
                 try {
                     databaseHelper.importData(city + ".csv");
@@ -37,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }*/
+        }
+
+        Cursor data = databaseHelper.getMonthData("Алмазный", 5);
+        if (data.moveToFirst()) {
+            String str = data.getString(data.getColumnIndex("content"));
+            System.out.println(str);
+        }
 
 //        ListView listView = findViewById(R.id.city_listview);
 //
