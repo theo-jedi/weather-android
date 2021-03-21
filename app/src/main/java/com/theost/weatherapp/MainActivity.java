@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        if (!databaseHelper.isInitialized()) {
             for (String city : cities) {
                 try {
                     databaseHelper.importData(city + ".csv");
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }
 
         Cursor data = databaseHelper.getMonthData("Алмазный", 1);
         if (data != null) {
