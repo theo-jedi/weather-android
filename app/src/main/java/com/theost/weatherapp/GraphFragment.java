@@ -33,6 +33,8 @@ public class GraphFragment extends Fragment {
     private float[] mParam4;
     private String mParam5;
 
+    private float[] dataFloat;
+
     public GraphFragment() {}
 
     public static GraphFragment newInstance(String param1, String param2, String param3, float[] param4, String param5) {
@@ -67,16 +69,17 @@ public class GraphFragment extends Fragment {
         LineChart chart = (LineChart) layout.findViewById(R.id.chart);
         TextView tv = layout.findViewById(R.id.textView);
         tv.setText(mParam5);
-//        MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
-//
-//        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-//                 toggleButtons.setSingleSelection(checkedId);
-//                 switch (checkedId) {
-//                     case R.id.button1:
-//                         break;
-//                 }
-//        });
-        float[] dataFloat = mParam4;
+        MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
+
+        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            toggleButtons.setSingleSelection(checkedId);
+            switch (checkedId) {
+                case 0:
+                    dataFloat = mParam4;
+                    break;
+            }
+        });
+
         DATA[] dataObjects = new DATA[365];
         for (int i = 0; i < 365; i++) {
             dataObjects[i] = new DATA(i, dataFloat[i]);
