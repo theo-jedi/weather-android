@@ -33,7 +33,12 @@ public class GraphFragment extends Fragment {
     private float[] mParam4;
     private String mParam5;
 
-    private float[] dataFloat;
+    private LineDataSet dataSet;
+    private LineData lineData;
+    private DATA[] dataObjects;
+    private List<Entry> entries;
+
+    private ArrayList<Float> dataFloat;
 
     public GraphFragment() {}
 
@@ -70,44 +75,118 @@ public class GraphFragment extends Fragment {
         TextView tv = layout.findViewById(R.id.textView);
         tv.setText(mParam5);
         MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
-
-        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            switch (checkedId) {
-                case R.id.button1:
-                    int pr = 0;
-                    ArrayList<Float> newArr = new ArrayList<>();
-                    for (int i = 0; i < 365; i++) {
-                        pr += dataFloat[i];
-                        if (i % 7 == 0) {
-                            newArr.add(pr / 7f);
-                            pr = 0;
-                        }
-                    }
-                    break;
-                case R.id.button2:
-
-                    break;
-                case R.id.button3:
-
-                    break;
-            }
-        });
-        dataFloat = mParam4;
-        DATA[] dataObjects = new DATA[365];
-        for (int i = 0; i < 365; i++) {
-            dataObjects[i] = new DATA(i, dataFloat[i]);
+        // заполняем массив полученными числами за год
+        dataFloat = new ArrayList<>();
+        for (float f : mParam4) {
+            dataFloat.add(f);
         }
-        List<Entry> entries = new ArrayList<Entry>();
+        dataObjects = new DATA[dataFloat.size()];
+        for (int i = 0; i < dataFloat.size(); i++) {
+            dataObjects[i] = new DATA(i, dataFloat.get(i));
+        }
+        entries = new ArrayList<Entry>();
         for (DATA data : dataObjects) {
             // turn your data into Entry objects
             entries.add(new Entry(data.getValueX(), data.getValueY()));
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+        dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
         dataSet.setColor(R.color.design_default_color_on_primary);
         dataSet.setValueTextColor(R.color.design_default_color_primary_dark); // styling, ...
-        LineData lineData = new LineData(dataSet);
+        lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate(); // refresh
+
+        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            int pr = 0;
+            ArrayList<Float> newArr;
+            switch (checkedId) {
+                case R.id.button1:
+                    pr = 0;
+                    newArr = new ArrayList<>();
+//                    for (int i = 0; i < dataFloat.size(); i++) {
+//                        pr += dataFloat.get(i);
+//                        if (i % 7 == 0) {
+//                            newArr.add(pr / 7f);
+//                            pr = 0;
+//                        }
+//                    }
+
+                        newArr.add(dataFloat.get(0));
+
+
+                    dataObjects = new DATA[newArr.size()];
+                    for (int i = 0; i < newArr.size(); i++) {
+                        dataObjects[i] = new DATA(i, newArr.get(i));
+                    }
+                    entries = new ArrayList<Entry>();
+                    for (DATA data : dataObjects) {
+                        // turn your data into Entry objects
+                        entries.add(new Entry(data.getValueX(), data.getValueY()));
+                    }
+                    dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+                    lineData = new LineData(dataSet);
+                    chart.setData(lineData);
+                    chart.invalidate(); // refresh
+                    break;
+                case R.id.button2:
+                    pr = 0;
+                    newArr = new ArrayList<>();
+//                    for (int i = 0; i < dataFloat.size(); i++) {
+//                        pr += dataFloat.get(i);
+//                        if (i % 7 == 0) {
+//                            newArr.add(pr / 7f);
+//                            pr = 0;
+//                        }
+//                    }
+                    for (int i = 0; i < 7; i++) {
+                        newArr.add(dataFloat.get(i));
+                    }
+
+                    dataObjects = new DATA[newArr.size()];
+                    for (int i = 0; i < newArr.size(); i++) {
+                        dataObjects[i] = new DATA(i, newArr.get(i));
+                    }
+                    entries = new ArrayList<Entry>();
+                    for (DATA data : dataObjects) {
+                        // turn your data into Entry objects
+                        entries.add(new Entry(data.getValueX(), data.getValueY()));
+                    }
+                    dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+                    lineData = new LineData(dataSet);
+                    chart.setData(lineData);
+                    chart.invalidate(); // refresh
+                    break;
+                case R.id.button3:
+                    pr = 0;
+                    newArr = new ArrayList<>();
+//                    for (int i = 0; i < dataFloat.size(); i++) {
+//                        pr += dataFloat.get(i);
+//                        if (i % 30 == 0) {
+//                            newArr.add(pr / 30f);
+//                            pr = 0;
+//                        }
+//                    }
+
+                    for (int i = 0; i < 31; i++) {
+                        newArr.add(dataFloat.get(i));
+                    }
+
+                    dataObjects = new DATA[newArr.size()];
+                    for (int i = 0; i < newArr.size(); i++) {
+                        dataObjects[i] = new DATA(i, newArr.get(i));
+                    }
+                    entries = new ArrayList<Entry>();
+                    for (DATA data : dataObjects) {
+                        // turn your data into Entry objects
+                        entries.add(new Entry(data.getValueX(), data.getValueY()));
+                    }
+                    dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+                    lineData = new LineData(dataSet);
+                    chart.setData(lineData);
+                    chart.invalidate(); // refresh
+                    break;
+            }
+        });
         return layout;
     }
     class DATA {
