@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 365; i++) {
                 temps[i] = i;
             }
-            bundle.putFloatArray("TEMPS", temps);
+            bundle.putFloatArray("TEMPS_DAY", temps);
             myFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.container, myFragment);
         }

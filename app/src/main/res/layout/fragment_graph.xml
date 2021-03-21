@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="400dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".GraphFragment">
@@ -12,7 +12,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:fontFamily="@font/font"
+        android:textColor="@color/black"
         android:text="GRAPH" />
 
     <com.github.mikephil.charting.charts.LineChart
@@ -25,7 +29,7 @@
         android:id="@+id/toggleButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:padding="10dp"
         app:singleSelection="true">
         <Button

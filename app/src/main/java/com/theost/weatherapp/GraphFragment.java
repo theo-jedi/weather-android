@@ -25,7 +25,7 @@ public class GraphFragment extends Fragment {
     private static final String ARG_PARAM1 = "MONTH";
     private static final String ARG_PARAM2 = "DAY";
     private static final String ARG_PARAM3 = "WEEK";
-    private static final String ARG_PARAM4 = "TEMPS";
+    private static final String ARG_PARAM4 = "TEMPS_DAY";
     private static final String ARG_PARAM5 = "NAME";
     private String mParam1;
     private String mParam2;
@@ -76,9 +76,10 @@ public class GraphFragment extends Fragment {
 //                         break;
 //                 }
 //        });
+        float[] dataFloat = mParam4;
         DATA[] dataObjects = new DATA[365];
         for (int i = 0; i < 365; i++) {
-            dataObjects[i] = new DATA(i, mParam4[i]);
+            dataObjects[i] = new DATA(i, dataFloat[i]);
         }
         List<Entry> entries = new ArrayList<Entry>();
         for (DATA data : dataObjects) {
