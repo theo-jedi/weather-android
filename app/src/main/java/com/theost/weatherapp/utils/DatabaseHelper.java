@@ -26,14 +26,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_2 = "DAY";
     public static final String COL_3 = "TEMP";
 
+    private Context context;
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
+        this.context = context;
+    }
+
+    public boolean isInitialized() {
+        return !this.getDatabaseName().isEmpty();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (String table : TABLES) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " REAL PRIMARY KEY, " + COL_1 + " REAL NOT NULL, " + COL_2 + " REAL NOT NULL" + COL_3 + " REAL NOT NULL");
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " INTEGER PRIMARY KEY, " + COL_1 + " INTEGER NOT NULL, " + COL_2 + " INTEGER NOT NULL" + COL_3 + " REAL NOT NULL");
         }
     }
 
@@ -51,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super.finalize();
     }
 
-    public void importData(Context context, String fileName) throws IOException {
+    public void importData(String fileName) throws IOException {
         SQLiteDatabase db = this.getWritableDatabase();
         InputStreamReader inputStreamReader = new InputStreamReader(context.getAssets().open("filename.csv"));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

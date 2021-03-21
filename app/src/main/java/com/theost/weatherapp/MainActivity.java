@@ -8,12 +8,36 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.theost.weatherapp.utils.DatabaseHelper;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
+
+    private final String[] cities = new String[] {
+            "Алмазный", "Западный", "Курортный", "Лесной", "Научный",
+            "Полярный", "Портовый", "Приморский", "Садовый", "Северный",
+            "Степной", "Таежный", "Южный"
+    };
+
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        databaseHelper = new DatabaseHelper(this);
+
+        if (!databaseHelper.isInitialized()) {
+            for (String city : cities) {
+                try {
+                    databaseHelper.importData(city + ".json");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
 //        ListView listView = findViewById(R.id.city_listview);
 //
