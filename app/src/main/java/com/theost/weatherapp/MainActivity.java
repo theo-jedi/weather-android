@@ -13,7 +13,6 @@ import com.theost.weatherapp.utils.DatabaseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private DatabaseHelper databaseHelper;
-
-    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,43 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
-//        Cursor dataa = databaseHelper.getMonthData("Алмазный", 1);
-//        if (dataa != null) {
-//            int count = 1;
-//           if (dataa.moveToFirst()) {
-//                String dayTemp = dataa.getString(dataa.getColumnIndex("TEMP"));
-//               count += 1;
-//           }
-//        }
-
-//        ListView listView = findViewById(R.id.city_listview);
-//
-//        // определяем строковый массив
-//        final String[] catNames = new String[] {
-//                "Алмазный", "Западный", "Курортный", "Лесной", "Научный",
-//                "Полярный", "Портовый", "Приморский", "Садовый", "Северный",
-//                "Степной", "Таежный", "Южный"
-//        };
-//
-//        // используем адаптер данных
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, catNames);
-//
-//        listView.setAdapter(adapter);
-
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction ft;
-//
-//        ft = fm.beginTransaction();
-//        Fragment fragment = new GraphFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("DAY", "12");
-//        bundle.putString("MONTH", "11");
-//        bundle.putString("YEAR", "1001");
-//        fragment.setArguments(bundle);
-//        ft.replace(R.id.container, fragment);
-//        ft.commit();
 
         // получаем экземпляр FragmentTransaction
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -104,10 +64,6 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString("MONTH", "11");
             bundle.putString("YEAR", "1001");
             bundle.putString("NAME", s);
-//            float[] temps = new float[365];
-//            for (int i = 0; i < 365; i++) {
-//                temps[i] = random.nextFloat() * 12 - 4;
-//            }
             int i = 0;
            float[] temps = new float[dots.size()];
             for (float d : dots) {

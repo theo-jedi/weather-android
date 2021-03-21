@@ -2,6 +2,7 @@ package com.theost.weatherapp;
 
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class GraphFragment extends Fragment {
@@ -103,15 +105,8 @@ public class GraphFragment extends Fragment {
                 case R.id.button1:
                     pr = 0;
                     newArr = new ArrayList<>();
-//                    for (int i = 0; i < dataFloat.size(); i++) {
-//                        pr += dataFloat.get(i);
-//                        if (i % 7 == 0) {
-//                            newArr.add(pr / 7f);
-//                            pr = 0;
-//                        }
-//                    }
 
-                        newArr.add(dataFloat.get(0));
+                        newArr.add(dataFloat.get(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)));
 
 
                     dataObjects = new DATA[newArr.size()];
@@ -131,14 +126,8 @@ public class GraphFragment extends Fragment {
                 case R.id.button2:
                     pr = 0;
                     newArr = new ArrayList<>();
-//                    for (int i = 0; i < dataFloat.size(); i++) {
-//                        pr += dataFloat.get(i);
-//                        if (i % 7 == 0) {
-//                            newArr.add(pr / 7f);
-//                            pr = 0;
-//                        }
-//                    }
-                    for (int i = 0; i < 7; i++) {
+                    int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+                    for (int i = week * 7 - 1 ; i < week * 7 + 6; i++) {
                         newArr.add(dataFloat.get(i));
                     }
 
@@ -159,15 +148,9 @@ public class GraphFragment extends Fragment {
                 case R.id.button3:
                     pr = 0;
                     newArr = new ArrayList<>();
-//                    for (int i = 0; i < dataFloat.size(); i++) {
-//                        pr += dataFloat.get(i);
-//                        if (i % 30 == 0) {
-//                            newArr.add(pr / 30f);
-//                            pr = 0;
-//                        }
-//                    }
 
-                    for (int i = 0; i < 31; i++) {
+                    int month = Calendar.getInstance().get(Calendar.MONTH) + 2;
+                    for (int i = month * 31 - 1; i < month * 31 + 30; i++) {
                         newArr.add(dataFloat.get(i));
                     }
 
