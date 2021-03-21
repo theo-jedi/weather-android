@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/simperium-android" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/simplenote-android" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/volli-android" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/wavenote-android" vcs="Git" />
+  </component>
+</project>
