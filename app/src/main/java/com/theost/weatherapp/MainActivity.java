@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        if (!databaseHelper.isInitialized()) {
+        /*if (!databaseHelper.isInitialized()) {
             for (String city : cities) {
                 try {
-                    databaseHelper.importData(city + ".json");
+                    databaseHelper.importData(city + ".csv");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
 
 //        ListView listView = findViewById(R.id.city_listview);
 //
