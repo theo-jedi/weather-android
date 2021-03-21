@@ -95,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;
@@ -107,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month + " AND " + COL_1 + "=" + week, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month + " AND " + COL_2 + "=" + week, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;
@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month + " AND " + COL_2 + "=" + day, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month + " AND " + COL_3 + "=" + day, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor data = databaseHelper.getMonthData("Алмазный", 1);
         if (data != null) {
             if (data.moveToFirst()) {
-                String str = data.getString(0);
+                String str = data.getString(data.getColumnIndex("TEMP"));
                 System.out.println(str);
             }
         }
