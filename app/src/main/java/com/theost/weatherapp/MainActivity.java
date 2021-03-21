@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Cursor data = databaseHelper.getMonthData("Алмазный", 5);
-        if (data.moveToFirst()) {
-            String str = data.getString(data.getColumnIndex("content"));
-            System.out.println(str);
+        Cursor data = databaseHelper.getMonthData("Алмазный", 1);
+        if (data != null) {
+            if (data.moveToFirst()) {
+                String str = data.getString(data.getColumnIndex("TEMP"));
+                System.out.println(str);
+            }
         }
 
 //        ListView listView = findViewById(R.id.city_listview);

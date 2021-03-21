@@ -21,10 +21,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "Степной", "Таежный", "Южный"
     };
 
-    public static final String COL_0 = "MONTH";
-    public static final String COL_1 = "WEEK";
-    public static final String COL_2 = "DAY";
-    public static final String COL_3 = "TEMP";
+    public static final String COL_0 = "id";
+    public static final String COL_1 = "MONTH";
+    public static final String COL_2 = "WEEK";
+    public static final String COL_3 = "DAY";
+    public static final String COL_4 = "TEMP";
 
     private Context context;
 
@@ -40,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (String table : TABLES) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " INTEGER PRIMARY KEY, " + COL_1 + " INTEGER NOT NULL, " + COL_2 + " INTEGER NOT NULL, " + COL_3 + " REAL NOT NULL)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + table + " (" + COL_0 + " INTEGER NOT NULL, " + COL_1 + " INTEGER NOT NULL, " + COL_2 + " INTEGER NOT NULL, " + COL_3 + " INTEGER NOT NULL, " + COL_4 + " REAL NOT NULL)");
         }
     }
 
@@ -60,23 +61,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void importData(String fileName) throws IOException {
         SQLiteDatabase db = this.getWritableDatabase();
-        InputStreamReader inputStreamReader = new InputStreamReader(context.getAssets().open("filename.csv"));
+        InputStreamReader inputStreamReader = new InputStreamReader(context.getAssets().open(fileName));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         String line;
         String tableName = fileName.replace(".json", "");
-        String columns = COL_0 + ", " + COL_1 + ", " + COL_2 + ", " + COL_3;
+        String columns = COL_0 + ", " + COL_1 + ", " + COL_2 + ", " + COL_3 + ", " + COL_4;
         String str1 = "INSERT INTO " + tableName + " (" + columns + ") values(";
         String str2 = ");";
         db.beginTransaction();
+        boolean first = true;
         while ((line = bufferedReader.readLine()) != null) {
-            StringBuilder sb = new StringBuilder(str1);
-            String[] str = line.split(",");
-            sb.append(str[0]).append(",");
-            sb.append(str[1]).append(",");
-            sb.append(str[2]).append(",");
-            sb.append(str[3]);
-            sb.append(str2);
-            db.execSQL(sb.toString());
+            if (first) {
+                first = false;
+            } else {
+                StringBuilder sb = new StringBuilder(str1);
+                String[] str = line.split(",");
+                if (str.length == 5) {
+                    sb.append(str[0]).append(",");
+                    sb.append(str[1]).append(",");
+                    sb.append(str[2]).append(",");
+                    sb.append(str[3]).append(",");
+                    sb.append(str[4]);
+                    sb.append(str2);
+                    db.execSQL(sb.toString().replace(".csv", ""));
+                }
+            }
         }
         db.setTransactionSuccessful();
         db.endTransaction();
@@ -86,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;
@@ -98,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month + " AND " + COL_1 + "=" + week, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month + " AND " + COL_2 + "=" + week, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;
@@ -110,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result;
         try {
-            result = db.rawQuery("SELECT " + COL_3 + " FROM " + city + " WHERE " + COL_0 + "=" + month + " AND " + COL_2 + "=" + day, null);
+            result = db.rawQuery("SELECT * FROM " + city + " WHERE " + COL_1 + "=" + month + " AND " + COL_3 + "=" + day, null);
         } catch (Exception e) {
             e.printStackTrace();
             result = null;
