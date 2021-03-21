@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Cursor dataa = databaseHelper.getMonthData("Алмазный", 1);
-        if (dataa != null) {
-            int count = 1;
-           if (dataa.moveToFirst()) {
-                String dayTemp = dataa.getString(dataa.getColumnIndex("TEMP"));
-               count += 1;
-           }
-        }
+//        Cursor dataa = databaseHelper.getMonthData("Алмазный", 1);
+//        if (dataa != null) {
+//            int count = 1;
+//           if (dataa.moveToFirst()) {
+//                String dayTemp = dataa.getString(dataa.getColumnIndex("TEMP"));
+//               count += 1;
+//           }
+//        }
 
 //        ListView listView = findViewById(R.id.city_listview);
 //
@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         for (String s : cities) {
             ArrayList<Float> dots = new ArrayList<>();
 
-            Cursor data = databaseHelper.getMonthData("Алмазный", 1);
+            Cursor data = databaseHelper.getYearData(s);
             if (data != null) {
-                if (data.moveToFirst()) {
+                while (data.moveToNext()) {
                     String dayTemp = data.getString(data.getColumnIndex("TEMP"));
                     float day = Float.parseFloat(dayTemp);
                     dots.add(day);
