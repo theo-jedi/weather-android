@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import com.theost.weatherapp.utils.DatabaseHelper;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        /*if (!databaseHelper.isInitialized()) {
+        if (!databaseHelper.isInitialized()) {
             for (String city : cities) {
                 try {
                     databaseHelper.importData(city + ".csv");
@@ -37,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }*/
+        }
+
+        Cursor data = databaseHelper.getMonthData("Алмазный", 5);
+        if (data.moveToFirst()) {
+            String str = data.getString(data.getColumnIndex("content"));
+            System.out.println(str);
+        }
 
 //        ListView listView = findViewById(R.id.city_listview);
 //
@@ -71,10 +78,21 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
-        // добавляем фрагмент
-        Fragment myFragment = new GraphFragment();
-        fragmentTransaction.add(R.id.container, myFragment);
+        for (String s : cities) {
+            Fragment myFragment = new GraphFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("DAY", "12");
+            bundle.putString("MONTH", "11");
+            bundle.putString("YEAR", "1001");
+            bundle.putString("NAME", s);
+            float[] temps = new float[365];
+            for (int i = 0; i < 365; i++) {
+                temps[i] = i;
+            }
+            bundle.putFloatArray("TEMPS_DAY", temps);
+            myFragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.container, myFragment);
+        }
         fragmentTransaction.commit();
     }
 

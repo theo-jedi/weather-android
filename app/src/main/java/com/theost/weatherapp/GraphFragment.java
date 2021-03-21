@@ -25,13 +25,15 @@ public class GraphFragment extends Fragment {
     private static final String ARG_PARAM1 = "MONTH";
     private static final String ARG_PARAM2 = "DAY";
     private static final String ARG_PARAM3 = "WEEK";
-    private static final String ARG_PARAM4 = "TEMPS";
+    private static final String ARG_PARAM4 = "TEMPS_DAY";
     private static final String ARG_PARAM5 = "NAME";
     private String mParam1;
     private String mParam2;
     private String mParam3;
     private float[] mParam4;
     private String mParam5;
+
+    private float[] dataFloat;
 
     public GraphFragment() {}
 
@@ -67,18 +69,33 @@ public class GraphFragment extends Fragment {
         LineChart chart = (LineChart) layout.findViewById(R.id.chart);
         TextView tv = layout.findViewById(R.id.textView);
         tv.setText(mParam5);
-//        MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
-//
-//        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-//                 toggleButtons.setSingleSelection(checkedId);
-//                 switch (checkedId) {
-//                     case R.id.button1:
-//                         break;
-//                 }
-//        });
+        MaterialButtonToggleGroup toggleButtons = layout.findViewById(R.id.toggleButton);
+
+        toggleButtons.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            switch (checkedId) {
+                case R.id.button1:
+                    int pr = 0;
+                    ArrayList<Float> newArr = new ArrayList<>();
+                    for (int i = 0; i < 365; i++) {
+                        pr += dataFloat[i];
+                        if (i % 7 == 0) {
+                            newArr.add(pr / 7f);
+                            pr = 0;
+                        }
+                    }
+                    break;
+                case R.id.button2:
+
+                    break;
+                case R.id.button3:
+
+                    break;
+            }
+        });
+        dataFloat = mParam4;
         DATA[] dataObjects = new DATA[365];
         for (int i = 0; i < 365; i++) {
-            dataObjects[i] = new DATA(i, mParam4[i]);
+            dataObjects[i] = new DATA(i, dataFloat[i]);
         }
         List<Entry> entries = new ArrayList<Entry>();
         for (DATA data : dataObjects) {
