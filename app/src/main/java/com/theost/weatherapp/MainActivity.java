@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.theost.weatherapp.utils.DatabaseHelper;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private DatabaseHelper databaseHelper;
+
+    private Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString("NAME", s);
             float[] temps = new float[365];
             for (int i = 0; i < 365; i++) {
-                temps[i] = i;
+                temps[i] = random.nextFloat() * 12 - 4;
             }
             bundle.putFloatArray("TEMPS_DAY", temps);
             myFragment.setArguments(bundle);
